@@ -1,25 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Fragment } from "react";
+import "./App.css";
+import Dashboard from "./components/Dashboard";
+import AdminDashboard from "./components/admin/AdminDashboard";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import store from "./store";
+import { Provider } from "react-redux";
+import PrivateRoute from "./components/routing/PrivateRoute";
+import Navigation from "./components/navigation/Navigation";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <Router>
+        {/* Field Crop App */}
+        <Fragment>
+          <div className="app-title">
+            <h1>Field Work App</h1>
+          </div>
+          <Navigation />
+          <Switch>
+            <Route exact path="/" render={() => <Dashboard />} />
+            <PrivateRoute path="/admin" component={AdminDashboard} />
+          </Switch>
+        </Fragment>
+      </Router>
+    </Provider>
   );
 }
 
