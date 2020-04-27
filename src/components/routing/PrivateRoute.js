@@ -3,12 +3,19 @@ import { Route, Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
-const PrivateRoute = ({ component: Component, isAdmin, ...rest }) => {
+const PrivateRoute = ({
+  component: Component,
+  isAdmin,
+  isCustomer,
+  ...rest
+}) => {
+  console.log("aaaaa", isAdmin, isCustomer);
+  
   return (
     <Route
       {...rest}
       render={(props) =>
-        !isAdmin ? <Redirect to="/" /> : <Component {...props} />
+        !isAdmin && !isCustomer ? <Redirect to="/" /> : <Component {...props} />
       }
     />
   );
@@ -16,10 +23,12 @@ const PrivateRoute = ({ component: Component, isAdmin, ...rest }) => {
 
 PrivateRoute.propTypes = {
   isAdmin: PropTypes.bool.isRequired,
+  isCustomer: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   isAdmin: state.authReducer.isAdmin,
+  isCustomer: state.authReducer.isCustomer,
 });
 
 export default connect(mapStateToProps)(PrivateRoute);

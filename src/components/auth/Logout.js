@@ -1,10 +1,24 @@
 import React from "react";
 import * as authActions from "../../actions/authActions";
 import { connect } from "react-redux";
+import axios from "axios";
 
 function Logout(props) {
-  const logout = () => {
+  const handleAxiosConfig = () => {
+    const { connection } = props;
+    const axiosConfig = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    if (connection && connection.token) {
+      axiosConfig.headers.Authorization = `Bearer ${connection.token}`;
+    }
+    return axiosConfig;
+  };
+  const logout = async () => {
     if (props.user || props.connection) {
+      // await axios.get("https://3.93.72.126/oadaauth/logout", handleAxiosConfig()) // cors error
       props.setConnectionObject(null);
       props.setUser(null);
       props.setAdminFlag(false);

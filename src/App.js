@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import "./App.css";
 import Dashboard from "./components/Dashboard";
 import AdminDashboard from "./components/admin/AdminDashboard";
+import CustomerDashboard from "./components/customer/CustomerDashboard";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import store from "./store";
 import { Provider } from "react-redux";
@@ -21,6 +22,7 @@ function App() {
           <Switch>
             <Route exact path="/" render={() => <Dashboard />} />
             <PrivateRoute path="/admin" component={AdminDashboard} />
+            <PrivateRoute path="/customer" component={CustomerDashboard} />
           </Switch>
         </Fragment>
       </Router>

@@ -24,39 +24,17 @@ class Dashboard extends Component {
     // await this.login();
   }
 
-  postResource = async () => {
-    const response = await axios.put(
-      "https://3.93.72.126/resources/a1r1",
-      { a1r111: "a1r111" },
-      this.handleAxiosConfig()
-    );
-  };
-  getResource = async () => {
-    const response = await axios.get(
-      "https://3.93.72.126/resources/a1r1",
-      this.handleAxiosConfig()
-    );
-  };
-  getBookmarks = async () => {
-    const response = await axios.get(
-      "https://3.93.72.126/bookmarks",
-      this.handleAxiosConfig()
-    );
-  };
   render() {
-    let token = null;
-    const { isAdmin } = this.props;
+    const { isAdmin, isCustomer } = this.props;
     if (isAdmin) {
       return <Redirect to="/admin" />;
+    } else if (isCustomer) {
+      return <Redirect to="/customer" />;
     }
 
     return (
       <div>
         <h2>Dashboard</h2>
-        <button onClick={() => this.postResource()}>POST resource</button>
-        <button onClick={() => this.getResource()}>GET resource</button>
-        <button onClick={() => this.getBookmarks()}>GET bookmarks</button>
-        <button onClick={() => this.getCurrentUser()}>GET CurrentUser</button>
         <button onClick={() => window.localStorage.clear()}>
           Clear Localstorage
         </button>
