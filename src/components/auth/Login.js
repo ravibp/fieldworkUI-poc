@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import * as authActions from "../../actions/authActions";
 import axios from "axios";
 import { connect } from "react-redux";
 const oada = require("@oada/oada-cache");
 
 function Login(props) {
+  useEffect(() => {
+    console.log("use effect did mount");
+    login();
+  }, []);
   const connect = async () => {
     const connection = await props.initializeConnection();
     if (connection && connection.token) {
