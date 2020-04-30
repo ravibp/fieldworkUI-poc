@@ -1,0 +1,16 @@
+{
+    "_id": "resources/crops",
+    "_rev": 14,
+    "_meta": {
+        "_id": "resources/crops/_meta",
+        "_rev": 14
+    },
+    "_type": "application/json",
+    "crops": {
+        "2ea3c9e2-45f7-4400-a183-b6326a0d1bd6": {
+            "cropName": "Barley",
+            "recommendations": {},
+            "subcriptions": {}
+        }
+    }
+}

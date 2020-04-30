@@ -4,21 +4,14 @@ import { connect } from "react-redux";
 import axios from "axios";
 
 function Logout(props) {
-  const handleAxiosConfig = () => {
-    const { connection } = props;
-    const axiosConfig = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    if (connection && connection.token) {
-      axiosConfig.headers.Authorization = `Bearer ${connection.token}`;
-    }
-    return axiosConfig;
-  };
   const logout = async () => {
     if (props.user || props.connection) {
-      // await axios.get("https://3.93.72.126/oadaauth/logout", handleAxiosConfig()) // cors error
+      console.log("connection logout", props.connection);
+      // const logoutresp = await props.connection.get({
+      //   path: "/oadaauth/logout",
+      // }); // cors error
+      // console.log("logoutresp ", logoutresp);
+
       props.setConnectionObject(null);
       props.setUser(null);
       props.setAdminFlag(false);
@@ -34,7 +27,8 @@ function Logout(props) {
 
 const mapDispatchToProps = (dispatch) => ({
   setAdminFlag: (isAdmin) => dispatch(authActions.setAdminFlag(isAdmin)),
-  setCustomerFlag: (isCustomer) => dispatch(authActions.setCustomerFlag(isCustomer)),
+  setCustomerFlag: (isCustomer) =>
+    dispatch(authActions.setCustomerFlag(isCustomer)),
   setConnectionObject: (connection) =>
     dispatch(authActions.setConnectionObject(connection)),
   setUser: (user) => dispatch(authActions.setUser(user)),

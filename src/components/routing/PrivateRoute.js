@@ -9,7 +9,6 @@ const PrivateRoute = ({
   isCustomer,
   ...rest
 }) => {
-  console.log("aaaaa", isAdmin, isCustomer);
   
   return (
     <Route

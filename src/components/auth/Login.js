@@ -2,36 +2,24 @@ import React from "react";
 import * as authActions from "../../actions/authActions";
 import axios from "axios";
 import { connect } from "react-redux";
+const oada = require("@oada/oada-cache");
 
 function Login(props) {
-  const handleAxiosConfig = (token) => {
-    const axiosConfig = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    if (token) {
-      axiosConfig.headers.Authorization = `Bearer ${token}`;
-    }
-    // if (token) {
-    // axiosConfig.headers.Authorization = `Bearer ${tokenStr}`;
-    // }
-
-    return axiosConfig;
-  };
   const connect = async () => {
-    const connection = await axios.get("http://localhost:5000");
-    if (connection && connection.data) {
-      props.setConnectionObject(connection.data);
-      return connection.data.token;
+    const connection = await props.initializeConnection();
+    if (connection && connection.token) {
+      return connection;
     }
   };
-  const getCurrentUser = async (token) => {
+  const getCurrentUser = async (connection) => {
+    console.log("connection", connection);
+
     let user = null;
-    const response = await axios.get(
-      "https://3.93.72.126/users/me",
-      handleAxiosConfig(token)
-    );
+    const response = await connection.get({
+      path: "/users/me",
+    });
+    console.log("user", response);
+
     const ADMINS = ["users/default:users_frank_123", "users/1809301"];
     if (response && response.status === 200 && response.data) {
       user = response.data;
@@ -49,9 +37,10 @@ function Login(props) {
     return user;
   };
   const login = async () => {
-    const token = await connect();
-    if (token) {
-      const user = await getCurrentUser(token);
+    const connection = await connect();
+
+    if (connection && connection.token) {
+      const user = await getCurrentUser(connection);
       props.setUser(user);
     }
   };
@@ -70,6 +59,8 @@ const mapDispatchToProps = (dispatch) => ({
   setConnectionObject: (connection) =>
     dispatch(authActions.setConnectionObject(connection)),
   setUser: (user) => dispatch(authActions.setUser(user)),
+  initializeConnection: (user) =>
+    dispatch(authActions.initializeConnection(user)),
 });
 
 const mapStateToProps = (state) => {

@@ -4,24 +4,13 @@ import { connect } from "react-redux";
 // import * as authActions from "../actions/authActions";
 import { Redirect } from "react-router-dom";
 
-// const oada = require("@oada/oada-cache");
+const oada = require("@oada/oada-cache");
 
 class Dashboard extends Component {
-  handleAxiosConfig = () => {
-    const { connection } = this.props;
-    const axiosConfig = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    if (connection && connection.token) {
-      axiosConfig.headers.Authorization = `Bearer ${connection.token}`;
-    }
-    return axiosConfig;
-  };
-
   async componentDidMount() {
     // await this.login();
+
+    // console.log("connection react", connection);
   }
 
   render() {
