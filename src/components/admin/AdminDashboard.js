@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import AddCrops from "./AddCrops";
+import CreateUsers from "./CreateUsers";
 import { connect } from "react-redux";
 import * as authActions from "../../actions/authActions";
 
@@ -9,6 +10,7 @@ class AdminDashboard extends Component {
       <div>
         <h2>Admin Dashboard</h2>
         <AddCrops {...this.props}/>
+        <CreateUsers {...this.props}/>
       </div>
     );
   }

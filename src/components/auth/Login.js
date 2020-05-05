@@ -6,7 +6,6 @@ const oada = require("@oada/oada-cache");
 
 function Login(props) {
   useEffect(() => {
-    console.log("use effect did mount");
     login();
   }, []);
   const connect = async () => {
@@ -16,13 +15,10 @@ function Login(props) {
     }
   };
   const getCurrentUser = async (connection) => {
-    console.log("connection", connection);
-
     let user = null;
     const response = await connection.get({
       path: "/users/me",
     });
-    console.log("user", response);
 
     const ADMINS = ["users/default:users_frank_123", "users/1809301"];
     if (response && response.status === 200 && response.data) {

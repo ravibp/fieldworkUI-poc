@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import axios from "axios";
 import { connect } from "react-redux";
 // import * as authActions from "../actions/authActions";
 import { Redirect } from "react-router-dom";
@@ -9,8 +8,6 @@ const oada = require("@oada/oada-cache");
 class Dashboard extends Component {
   async componentDidMount() {
     // await this.login();
-
-    // console.log("connection react", connection);
   }
 
   render() {

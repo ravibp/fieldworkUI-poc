@@ -18,6 +18,7 @@ export default class AddCrops extends Component {
   };
   getAllCrops = async () => {
     const { connection } = this.props;
+    
     const path = "/bookmarks/crops/cropsList";
     const tree = {
       bookmarks: {
@@ -30,15 +31,15 @@ export default class AddCrops extends Component {
           cropsList: {
             _type: "application/vnd.oada.todoList.1+json",
             _rev: 0,
-            // "*": {
-            //   _type: "application/vnd.oada.todoItem.1+json",
-            //   _rev: 0,
-            // },
+            "*": {
+              _type: "application/vnd.oada.todoItem.1+json",
+              _rev: 0,
+            },
           },
         },
       },
     };
-    const response = await connection.get({ path });
+    const response = await connection.get({ path, tree });
     console.log("all crops", response);
   };
   addCrop = async (event) => {
@@ -55,7 +56,6 @@ export default class AddCrops extends Component {
     };
     let response = await connection.post({ path, data, headers });
     const resourceID = response.headers["content-location"].slice(1);
-    console.log("resourceID", resourceID);
 
     // link the resource with a POST request to cropsList
     path = "/resources/crops/cropsList";
@@ -65,7 +65,6 @@ export default class AddCrops extends Component {
     this.getAllCrops();
   };
   render() {
-    console.log("render", this.state);
     return (
       <div>
         AddCrops
